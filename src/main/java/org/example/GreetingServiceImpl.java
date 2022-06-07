@@ -259,7 +259,7 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
                 name.add(resultSet.getString("name"));
                 text_link.add(resultSet.getString("text_link"));
                 track_link.add(resultSet.getString("track_link"));
-                id.add(Integer.getInteger(resultSet.getString("id")));
+                id.add(Integer.parseInt(resultSet.getString("id")));
             }
         } catch (SQLException e) {
             //ахахах тупая джава я тебя переиграл
