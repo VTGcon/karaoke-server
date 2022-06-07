@@ -245,18 +245,18 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
 	try {
             resultSet = statement.executeQuery("SELECT * FROM default_tracks;");
         } catch (SQLExcpetion e) {
-	    response.addAllAuthor(text_link);
+            response.addAllAuthor(text_link);
             response.addAllId(id);
             response.addAllUrl(track_link);
             response.addAllName(name);
-	    responseStreamObserver.onNext(response.build());
+            responseStreamObserver.onNext(response.build());
             responseStreamObserver.onCompleted();
 	}
 	while (resultSet.next()) {
 	    names.add(resultSet.getString("name"));
             author.add(resultSet.getString("text_link"));
             url.add(resultSet.getString("track_link"));
-            id.add(resultSet.getInt("id"));
+            id.add(resultSet.getString("id"));
 	}
         response.addAllAuthor(text_link);
         response.addAllId(id);
