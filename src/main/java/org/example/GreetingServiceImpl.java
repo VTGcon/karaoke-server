@@ -228,7 +228,7 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
     }
 
     @Override
-    public void getDefaultTracks(com.google.protobuf.Empty empty, StreamObserver<getDefaultTracksResponse> responseStreamObserver) {
+    public void getDefaultTracks(com.google.protobuf.Empty empty, StreamObserver<getDefaultTracksResponse> responseStreamObserver) throws SQLException {
         System.out.println("GET DEFAULT TRACKS");
         getDefaultTracksResponse.Builder response = getDefaultTracksResponse.newBuilder();
         try {
@@ -239,25 +239,26 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
         }
         ResultSet resultSet = null;
         List<String> text_link = new ArrayList<>();
-	List<String> id = new ArrayList<>();
-	List<String> track_link = new ArrayList<>();
-	List<String> name = new ArrayList<>();
-	try {
+        List<Integer> id = new ArrayList<>();
+        List<String> track_link = new ArrayList<>();
+        List<String> name = new ArrayList<>();
+        try {
             resultSet = statement.executeQuery("SELECT * FROM default_tracks;");
-        } catch (SQLExcpetion e) {
+        } catch (SQLException e) {
             response.addAllAuthor(text_link);
             response.addAllId(id);
             response.addAllUrl(track_link);
             response.addAllName(name);
             responseStreamObserver.onNext(response.build());
             responseStreamObserver.onCompleted();
-	}
-	while (resultSet.next()) {
-	    names.add(resultSet.getString("name"));
-            author.add(resultSet.getString("text_link"));
-            url.add(resultSet.getString("track_link"));
-            id.add(resultSet.getString("id"));
-	}
+        }
+        assert resultSet != null;
+        while (resultSet.next()) {
+            name.add(resultSet.getString("name"));
+            text_link.add(resultSet.getString("text_link"));
+            track_link.add(resultSet.getString("track_link"));
+            id.add(Integer.getInteger(resultSet.getString("id")));
+        }
         response.addAllAuthor(text_link);
         response.addAllId(id);
         response.addAllUrl(track_link);
