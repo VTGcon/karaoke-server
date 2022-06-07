@@ -244,7 +244,7 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
 	ArrayList<String> name = new ArrayList<>();
 	try {
             resultSet = statement.executeQuery("SELECT * FROM default_tracks;");
-        } catch {
+        } catch (SQLExcpetion e) {
 	    response.addAllAuthor(text_link);
             response.addAllId(id);
             response.addAllUrl(track_link);
