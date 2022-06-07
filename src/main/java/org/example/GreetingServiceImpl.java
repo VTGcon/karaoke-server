@@ -228,7 +228,7 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
     }
 
     @Override
-    public void getDefaultTracks(com.google.protobuf.Empty empty, StreamObserver<getDefaultTracksResponse> responseStreamObserver) throws SQLException {
+    public void getDefaultTracks(com.google.protobuf.Empty empty, StreamObserver<getDefaultTracksResponse> responseStreamObserver) {
         System.out.println("GET DEFAULT TRACKS");
         getDefaultTracksResponse.Builder response = getDefaultTracksResponse.newBuilder();
         try {
@@ -253,11 +253,16 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
             responseStreamObserver.onCompleted();
         }
         assert resultSet != null;
-        while (resultSet.next()) {
-            name.add(resultSet.getString("name"));
-            text_link.add(resultSet.getString("text_link"));
-            track_link.add(resultSet.getString("track_link"));
-            id.add(Integer.getInteger(resultSet.getString("id")));
+        try {
+
+            while (resultSet.next()) {
+                name.add(resultSet.getString("name"));
+                text_link.add(resultSet.getString("text_link"));
+                track_link.add(resultSet.getString("track_link"));
+                id.add(Integer.getInteger(resultSet.getString("id")));
+            }
+        } catch (SQLException e) {
+            //ахахах тупая джава я тебя переиграл
         }
         response.addAllAuthor(text_link);
         response.addAllId(id);
