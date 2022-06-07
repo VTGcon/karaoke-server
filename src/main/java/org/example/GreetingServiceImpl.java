@@ -238,10 +238,10 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
             responseStreamObserver.onCompleted();
         }
         ResultSet resultSet = null;
-        ArrayList<String> text_link = new ArrayList<>();
-	ArrayList<String> id = new ArrayList<>();
-	ArrayList<String> track_link = new ArrayList<>();
-	ArrayList<String> name = new ArrayList<>();
+        List<String> text_link = new ArrayList<>();
+	List<String> id = new ArrayList<>();
+	List<String> track_link = new ArrayList<>();
+	List<String> name = new ArrayList<>();
 	try {
             resultSet = statement.executeQuery("SELECT * FROM default_tracks;");
         } catch (SQLExcpetion e) {
