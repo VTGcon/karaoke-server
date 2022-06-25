@@ -375,15 +375,12 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
         } catch (Exception e) {
             //иди нахуй
         }
-        for (Integer integer : id) {
-            System.out.println(integer);
-        }
         ArrayList<String> name = new ArrayList<>();
         ArrayList<String> author = new ArrayList<>();
         ArrayList<String> url = new ArrayList<>();
         for (int i = 0; i < id.size(); i++) {
             try {
-                resultSet = statement.executeQuery("SELECT FROM default_tracks WHERE id=" + id.get(i) + ";");
+                resultSet = statement.executeQuery("SELECT * FROM default_tracks WHERE id=" + id.get(i) + ";");
                 while (resultSet.next()) {
                     name.add(resultSet.getString("name"));
                     author.add(resultSet.getString("track_link"));
