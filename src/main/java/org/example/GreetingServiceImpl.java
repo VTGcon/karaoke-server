@@ -300,6 +300,94 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
         responseStreamObserver.onCompleted();
         System.out.println("FINISH GET ALL USER EMAILS");
     }
+
+    @Override
+    public void addLike(addLikeRequest request, StreamObserver<addLikeResponse> responseStreamObserver) {
+        System.out.println("ADD LIKE");
+        addLikeResponse.Builder response = addLikeResponse.newBuilder();
+        try {
+            statement = connection.createStatement();
+        } catch (SQLException e) {
+            responseStreamObserver.onNext(response.setCode(false).build());
+            responseStreamObserver.onCompleted();
+        }
+        ResultSet resultSet = null;
+        try {
+            resultSet = statement.executeQuery("INSERT INTO likes VALUES ('" + request.getLogin() + "', " + request.getId() + ");");
+        } catch (SQLException e) {
+            responseStreamObserver.onNext(response.setCode(false).build());
+            responseStreamObserver.onCompleted();
+        }
+        responseStreamObserver.onNext(response.setCode(true).build());
+        responseStreamObserver.onCompleted();
+        System.out.println("FINISH ADD LIKE");
+    }
+
+    @Override
+    public void removeLike(removeLikeRequest request, StreamObserver<removeLikeResponse> responseStreamObserver) {
+        System.out.println("REMOVE LIKE");
+        removeLikeResponse.Builder response = removeLikeResponse.newBuilder();
+        try {
+            statement = connection.createStatement();
+        } catch (SQLException e) {
+            responseStreamObserver.onNext(response.setCode(false).build());
+            responseStreamObserver.onCompleted();
+        }
+        ResultSet resultSet = null;
+        try {
+            resultSet = statement.executeQuery("DELETE FROM likes WHERE login='" + request.getLogin() + "' AND id=" + request.getId() + ';');
+        } catch (SQLException e) {
+            responseStreamObserver.onNext(response.setCode(false).build());
+            responseStreamObserver.onCompleted();
+        }
+        responseStreamObserver.onNext(response.setCode(true).build());
+        responseStreamObserver.onCompleted();
+        System.out.println("FINISH REMOVE LIKE");
+    }
+
+    @Override
+    public void getLikedTracks(getLikedTracksRequest request, StreamObserver<getLikedTracksResponse> responseStreamObserver) {
+        System.out.println("GET LIKED TRACKS");
+        getLikedTracksResponse.Builder response = getLikedTracksResponse.newBuilder();
+        try {
+            statement = connection.createStatement();
+        } catch (SQLException e) {
+//            responseStreamObserver.onNext(response.setCode(false).build());
+            responseStreamObserver.onCompleted();
+        }
+        ResultSet resultSet = null;
+        ArrayList<Integer> id = new ArrayList<>();
+        try {
+            resultSet = statement.executeQuery("SELECT FROM likes WHERE login='" + request.getLogin() + "';");
+        } catch (SQLException e) {
+//            responseStreamObserver.onNext(response.setCode(false).build());
+            responseStreamObserver.onCompleted();
+        }
+        try {
+            while (resultSet.next()) {
+                id.add(resultSet.getInt("id"));
+            }
+        } catch (Exception e) {
+            //иди нахуй
+        }
+        ArrayList<String> name = new ArrayList<>();
+        ArrayList<String> author = new ArrayList<>();
+        ArrayList<String> url = new ArrayList<>();
+        for (int i = 0; i < id.size(); i++) {
+            try {
+                resultSet = statement.executeQuery("SELECT FROM default_tracks WHERE id=" + id.get(i) + ";");
+                while (resultSet.next()) {
+                    name.add(resultSet.getString("name"));
+                    author.add(resultSet.getString("track_link"));
+                    url.add(resultSet.getString("text_link"));
+                }
+            } catch (SQLException e) {
+                //потом
+            }
+        }
+        responseStreamObserver.onNext(response.addAllId(id).addAllUrl(url).addAllName(name).addAllAuthor(author).build());
+        responseStreamObserver.onCompleted();
+    }
 //    @Override
 //    public void userMixedTracks(GreetingProto.requestUserMixedTracks request, StreamObserver<GreetingServiceOuterClass.responseUserMixedTracks> responseObserver) {
 //        System.out.println(request);
