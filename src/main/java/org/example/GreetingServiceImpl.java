@@ -383,8 +383,8 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
                 resultSet = statement.executeQuery("SELECT * FROM default_tracks WHERE id=" + id.get(i) + ";");
                 while (resultSet.next()) {
                     name.add(resultSet.getString("name"));
-                    author.add(resultSet.getString("track_link"));
-                    url.add(resultSet.getString("text_link"));
+                    author.add(resultSet.getString("text_link"));
+                    url.add(resultSet.getString("track_link"));
                 }
             } catch (SQLException e) {
                 //потом
