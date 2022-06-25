@@ -310,6 +310,7 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
         } catch (SQLException e) {
             responseStreamObserver.onNext(response.setCode(false).build());
             responseStreamObserver.onCompleted();
+            return;
         }
         ResultSet resultSet = null;
         try {
@@ -317,6 +318,7 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
         } catch (SQLException e) {
             responseStreamObserver.onNext(response.setCode(false).build());
             responseStreamObserver.onCompleted();
+            return;
         }
         responseStreamObserver.onNext(response.setCode(true).build());
         responseStreamObserver.onCompleted();
@@ -332,6 +334,7 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
         } catch (SQLException e) {
             responseStreamObserver.onNext(response.setCode(false).build());
             responseStreamObserver.onCompleted();
+            return;
         }
         ResultSet resultSet = null;
         try {
@@ -339,6 +342,7 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
         } catch (SQLException e) {
             responseStreamObserver.onNext(response.setCode(false).build());
             responseStreamObserver.onCompleted();
+            return;
         }
         responseStreamObserver.onNext(response.setCode(true).build());
         responseStreamObserver.onCompleted();
@@ -369,6 +373,9 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
             }
         } catch (Exception e) {
             //иди нахуй
+        }
+        for (Integer integer : id) {
+            System.out.println(integer);
         }
         ArrayList<String> name = new ArrayList<>();
         ArrayList<String> author = new ArrayList<>();
