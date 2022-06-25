@@ -357,12 +357,13 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
             statement = connection.createStatement();
         } catch (SQLException e) {
 //            responseStreamObserver.onNext(response.setCode(false).build());
+//            System.exit(0);
             responseStreamObserver.onCompleted();
         }
         ResultSet resultSet = null;
         ArrayList<Integer> id = new ArrayList<>();
         try {
-            resultSet = statement.executeQuery("SELECT FROM likes WHERE login='" + request.getLogin() + "';");
+            resultSet = statement.executeQuery("SELECT * FROM likes WHERE login='" + request.getLogin() + "';");
         } catch (SQLException e) {
 //            responseStreamObserver.onNext(response.setCode(false).build());
             responseStreamObserver.onCompleted();
