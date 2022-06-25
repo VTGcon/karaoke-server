@@ -312,9 +312,8 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
             responseStreamObserver.onCompleted();
             return;
         }
-        ResultSet resultSet = null;
         try {
-            resultSet = statement.executeQuery("INSERT INTO likes VALUES ('" + request.getLogin() + "', " + request.getId() + ");");
+            statement.executeQuery("INSERT INTO likes VALUES ('" + request.getLogin() + "', " + request.getId() + ");");
         } catch (SQLException e) {
             responseStreamObserver.onNext(response.setCode(false).build());
             responseStreamObserver.onCompleted();
@@ -336,9 +335,8 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
             responseStreamObserver.onCompleted();
             return;
         }
-        ResultSet resultSet = null;
         try {
-            resultSet = statement.executeQuery("DELETE FROM likes WHERE login='" + request.getLogin() + "' AND id=" + request.getId() + ';');
+            statement.executeQuery("DELETE FROM likes WHERE login='" + request.getLogin() + "' AND id=" + request.getId() + ';');
         } catch (SQLException e) {
             responseStreamObserver.onNext(response.setCode(false).build());
             responseStreamObserver.onCompleted();
