@@ -315,6 +315,7 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
         try {
             statement.executeQuery("INSERT INTO likes VALUES ('" + request.getLogin() + "', " + request.getId() + ");");
         } catch (SQLException e) {
+            e.printStackTrace();
             responseStreamObserver.onNext(response.setCode(false).build());
             responseStreamObserver.onCompleted();
             return;
@@ -338,6 +339,7 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
         try {
             statement.executeQuery("DELETE FROM likes WHERE login='" + request.getLogin() + "' AND id=" + request.getId() + ';');
         } catch (SQLException e) {
+            e.printStackTrace();
             responseStreamObserver.onNext(response.setCode(false).build());
             responseStreamObserver.onCompleted();
             return;
