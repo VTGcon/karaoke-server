@@ -313,7 +313,7 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
             return;
         }
         try {
-            statement.executeQuery("INSERT INTO likes VALUES ('" + request.getLogin() + "', " + request.getId() + ");");
+            statement.execute("INSERT INTO likes VALUES ('" + request.getLogin() + "', " + request.getId() + ");");
         } catch (SQLException e) {
             e.printStackTrace();
             responseStreamObserver.onNext(response.setCode(false).build());
@@ -337,7 +337,7 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
             return;
         }
         try {
-            statement.executeQuery("DELETE FROM likes WHERE login='" + request.getLogin() + "' AND id=" + request.getId() + ';');
+            statement.execute("DELETE FROM likes WHERE login='" + request.getLogin() + "' AND id=" + request.getId() + ';');
         } catch (SQLException e) {
             e.printStackTrace();
             responseStreamObserver.onNext(response.setCode(false).build());
