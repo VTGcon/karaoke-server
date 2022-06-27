@@ -46,7 +46,6 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
             responseStreamObserver.onCompleted();
             return;
         }
-        assert statement != null;
         try {
             statement.execute("INSERT INTO users VALUES ('" + request.getFirstName() + "', '" + request.getSecondName() + "', '" + request.getEmail() + "', '" + request.getPassword() + "');");
         } catch (SQLException e) {
