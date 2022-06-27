@@ -360,6 +360,117 @@ public final class GreetingServiceGrpc {
      }
      return getDeleteTrackMethod;
   }
+  @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
+  @java.lang.Deprecated // Use {@link #getAddLikeMethod()} instead. 
+  public static final io.grpc.MethodDescriptor<com.example.grpc.client.addLikeRequest,
+      com.example.grpc.client.addLikeResponse> METHOD_ADD_LIKE = getAddLikeMethodHelper();
+
+  private static volatile io.grpc.MethodDescriptor<com.example.grpc.client.addLikeRequest,
+      com.example.grpc.client.addLikeResponse> getAddLikeMethod;
+
+  @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
+  public static io.grpc.MethodDescriptor<com.example.grpc.client.addLikeRequest,
+      com.example.grpc.client.addLikeResponse> getAddLikeMethod() {
+    return getAddLikeMethodHelper();
+  }
+
+  private static io.grpc.MethodDescriptor<com.example.grpc.client.addLikeRequest,
+      com.example.grpc.client.addLikeResponse> getAddLikeMethodHelper() {
+    io.grpc.MethodDescriptor<com.example.grpc.client.addLikeRequest, com.example.grpc.client.addLikeResponse> getAddLikeMethod;
+    if ((getAddLikeMethod = GreetingServiceGrpc.getAddLikeMethod) == null) {
+      synchronized (GreetingServiceGrpc.class) {
+        if ((getAddLikeMethod = GreetingServiceGrpc.getAddLikeMethod) == null) {
+          GreetingServiceGrpc.getAddLikeMethod = getAddLikeMethod = 
+              io.grpc.MethodDescriptor.<com.example.grpc.client.addLikeRequest, com.example.grpc.client.addLikeResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(
+                  "client.GreetingService", "addLike"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.example.grpc.client.addLikeRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.example.grpc.client.addLikeResponse.getDefaultInstance()))
+                  .setSchemaDescriptor(new GreetingServiceMethodDescriptorSupplier("addLike"))
+                  .build();
+          }
+        }
+     }
+     return getAddLikeMethod;
+  }
+  @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
+  @java.lang.Deprecated // Use {@link #getRemoveLikeMethod()} instead. 
+  public static final io.grpc.MethodDescriptor<com.example.grpc.client.removeLikeRequest,
+      com.example.grpc.client.removeLikeResponse> METHOD_REMOVE_LIKE = getRemoveLikeMethodHelper();
+
+  private static volatile io.grpc.MethodDescriptor<com.example.grpc.client.removeLikeRequest,
+      com.example.grpc.client.removeLikeResponse> getRemoveLikeMethod;
+
+  @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
+  public static io.grpc.MethodDescriptor<com.example.grpc.client.removeLikeRequest,
+      com.example.grpc.client.removeLikeResponse> getRemoveLikeMethod() {
+    return getRemoveLikeMethodHelper();
+  }
+
+  private static io.grpc.MethodDescriptor<com.example.grpc.client.removeLikeRequest,
+      com.example.grpc.client.removeLikeResponse> getRemoveLikeMethodHelper() {
+    io.grpc.MethodDescriptor<com.example.grpc.client.removeLikeRequest, com.example.grpc.client.removeLikeResponse> getRemoveLikeMethod;
+    if ((getRemoveLikeMethod = GreetingServiceGrpc.getRemoveLikeMethod) == null) {
+      synchronized (GreetingServiceGrpc.class) {
+        if ((getRemoveLikeMethod = GreetingServiceGrpc.getRemoveLikeMethod) == null) {
+          GreetingServiceGrpc.getRemoveLikeMethod = getRemoveLikeMethod = 
+              io.grpc.MethodDescriptor.<com.example.grpc.client.removeLikeRequest, com.example.grpc.client.removeLikeResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(
+                  "client.GreetingService", "removeLike"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.example.grpc.client.removeLikeRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.example.grpc.client.removeLikeResponse.getDefaultInstance()))
+                  .setSchemaDescriptor(new GreetingServiceMethodDescriptorSupplier("removeLike"))
+                  .build();
+          }
+        }
+     }
+     return getRemoveLikeMethod;
+  }
+  @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
+  @java.lang.Deprecated // Use {@link #getGetLikedTracksMethod()} instead. 
+  public static final io.grpc.MethodDescriptor<com.example.grpc.client.getLikedTracksRequest,
+      com.example.grpc.client.getLikedTracksResponse> METHOD_GET_LIKED_TRACKS = getGetLikedTracksMethodHelper();
+
+  private static volatile io.grpc.MethodDescriptor<com.example.grpc.client.getLikedTracksRequest,
+      com.example.grpc.client.getLikedTracksResponse> getGetLikedTracksMethod;
+
+  @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
+  public static io.grpc.MethodDescriptor<com.example.grpc.client.getLikedTracksRequest,
+      com.example.grpc.client.getLikedTracksResponse> getGetLikedTracksMethod() {
+    return getGetLikedTracksMethodHelper();
+  }
+
+  private static io.grpc.MethodDescriptor<com.example.grpc.client.getLikedTracksRequest,
+      com.example.grpc.client.getLikedTracksResponse> getGetLikedTracksMethodHelper() {
+    io.grpc.MethodDescriptor<com.example.grpc.client.getLikedTracksRequest, com.example.grpc.client.getLikedTracksResponse> getGetLikedTracksMethod;
+    if ((getGetLikedTracksMethod = GreetingServiceGrpc.getGetLikedTracksMethod) == null) {
+      synchronized (GreetingServiceGrpc.class) {
+        if ((getGetLikedTracksMethod = GreetingServiceGrpc.getGetLikedTracksMethod) == null) {
+          GreetingServiceGrpc.getGetLikedTracksMethod = getGetLikedTracksMethod = 
+              io.grpc.MethodDescriptor.<com.example.grpc.client.getLikedTracksRequest, com.example.grpc.client.getLikedTracksResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(
+                  "client.GreetingService", "getLikedTracks"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.example.grpc.client.getLikedTracksRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.example.grpc.client.getLikedTracksResponse.getDefaultInstance()))
+                  .setSchemaDescriptor(new GreetingServiceMethodDescriptorSupplier("getLikedTracks"))
+                  .build();
+          }
+        }
+     }
+     return getGetLikedTracksMethod;
+  }
 
   /**
    * Creates a new async stub that supports all call types for the service
@@ -451,6 +562,27 @@ public final class GreetingServiceGrpc {
       asyncUnimplementedUnaryCall(getDeleteTrackMethodHelper(), responseObserver);
     }
 
+    /**
+     */
+    public void addLike(com.example.grpc.client.addLikeRequest request,
+        io.grpc.stub.StreamObserver<com.example.grpc.client.addLikeResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getAddLikeMethodHelper(), responseObserver);
+    }
+
+    /**
+     */
+    public void removeLike(com.example.grpc.client.removeLikeRequest request,
+        io.grpc.stub.StreamObserver<com.example.grpc.client.removeLikeResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getRemoveLikeMethodHelper(), responseObserver);
+    }
+
+    /**
+     */
+    public void getLikedTracks(com.example.grpc.client.getLikedTracksRequest request,
+        io.grpc.stub.StreamObserver<com.example.grpc.client.getLikedTracksResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getGetLikedTracksMethodHelper(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -516,6 +648,27 @@ public final class GreetingServiceGrpc {
                 com.example.grpc.client.deleteTrackRequest,
                 com.example.grpc.client.deleteTrackResponse>(
                   this, METHODID_DELETE_TRACK)))
+          .addMethod(
+            getAddLikeMethodHelper(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.example.grpc.client.addLikeRequest,
+                com.example.grpc.client.addLikeResponse>(
+                  this, METHODID_ADD_LIKE)))
+          .addMethod(
+            getRemoveLikeMethodHelper(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.example.grpc.client.removeLikeRequest,
+                com.example.grpc.client.removeLikeResponse>(
+                  this, METHODID_REMOVE_LIKE)))
+          .addMethod(
+            getGetLikedTracksMethodHelper(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.example.grpc.client.getLikedTracksRequest,
+                com.example.grpc.client.getLikedTracksResponse>(
+                  this, METHODID_GET_LIKED_TRACKS)))
           .build();
     }
   }
@@ -609,6 +762,30 @@ public final class GreetingServiceGrpc {
       asyncUnaryCall(
           getChannel().newCall(getDeleteTrackMethodHelper(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void addLike(com.example.grpc.client.addLikeRequest request,
+        io.grpc.stub.StreamObserver<com.example.grpc.client.addLikeResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getAddLikeMethodHelper(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void removeLike(com.example.grpc.client.removeLikeRequest request,
+        io.grpc.stub.StreamObserver<com.example.grpc.client.removeLikeResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getRemoveLikeMethodHelper(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void getLikedTracks(com.example.grpc.client.getLikedTracksRequest request,
+        io.grpc.stub.StreamObserver<com.example.grpc.client.getLikedTracksResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getGetLikedTracksMethodHelper(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -690,6 +867,27 @@ public final class GreetingServiceGrpc {
     public com.example.grpc.client.deleteTrackResponse deleteTrack(com.example.grpc.client.deleteTrackRequest request) {
       return blockingUnaryCall(
           getChannel(), getDeleteTrackMethodHelper(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.example.grpc.client.addLikeResponse addLike(com.example.grpc.client.addLikeRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getAddLikeMethodHelper(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.example.grpc.client.removeLikeResponse removeLike(com.example.grpc.client.removeLikeRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getRemoveLikeMethodHelper(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.example.grpc.client.getLikedTracksResponse getLikedTracks(com.example.grpc.client.getLikedTracksRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getGetLikedTracksMethodHelper(), getCallOptions(), request);
     }
   }
 
@@ -782,6 +980,30 @@ public final class GreetingServiceGrpc {
       return futureUnaryCall(
           getChannel().newCall(getDeleteTrackMethodHelper(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.example.grpc.client.addLikeResponse> addLike(
+        com.example.grpc.client.addLikeRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getAddLikeMethodHelper(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.example.grpc.client.removeLikeResponse> removeLike(
+        com.example.grpc.client.removeLikeRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getRemoveLikeMethodHelper(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.example.grpc.client.getLikedTracksResponse> getLikedTracks(
+        com.example.grpc.client.getLikedTracksRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getGetLikedTracksMethodHelper(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_ADD_USER = 0;
@@ -793,6 +1015,9 @@ public final class GreetingServiceGrpc {
   private static final int METHODID_GET_DEFAULT_TRACKS = 6;
   private static final int METHODID_GET_ALL_USER_EMAILS = 7;
   private static final int METHODID_DELETE_TRACK = 8;
+  private static final int METHODID_ADD_LIKE = 9;
+  private static final int METHODID_REMOVE_LIKE = 10;
+  private static final int METHODID_GET_LIKED_TRACKS = 11;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -846,6 +1071,18 @@ public final class GreetingServiceGrpc {
         case METHODID_DELETE_TRACK:
           serviceImpl.deleteTrack((com.example.grpc.client.deleteTrackRequest) request,
               (io.grpc.stub.StreamObserver<com.example.grpc.client.deleteTrackResponse>) responseObserver);
+          break;
+        case METHODID_ADD_LIKE:
+          serviceImpl.addLike((com.example.grpc.client.addLikeRequest) request,
+              (io.grpc.stub.StreamObserver<com.example.grpc.client.addLikeResponse>) responseObserver);
+          break;
+        case METHODID_REMOVE_LIKE:
+          serviceImpl.removeLike((com.example.grpc.client.removeLikeRequest) request,
+              (io.grpc.stub.StreamObserver<com.example.grpc.client.removeLikeResponse>) responseObserver);
+          break;
+        case METHODID_GET_LIKED_TRACKS:
+          serviceImpl.getLikedTracks((com.example.grpc.client.getLikedTracksRequest) request,
+              (io.grpc.stub.StreamObserver<com.example.grpc.client.getLikedTracksResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -917,6 +1154,9 @@ public final class GreetingServiceGrpc {
               .addMethod(getGetDefaultTracksMethodHelper())
               .addMethod(getGetAllUserEmailsMethodHelper())
               .addMethod(getDeleteTrackMethodHelper())
+              .addMethod(getAddLikeMethodHelper())
+              .addMethod(getRemoveLikeMethodHelper())
+              .addMethod(getGetLikedTracksMethodHelper())
               .build();
         }
       }
