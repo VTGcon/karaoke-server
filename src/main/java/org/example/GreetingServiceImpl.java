@@ -22,13 +22,15 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
         try {
             Class.forName("org.postgresql.Driver");
         } catch (java.lang.ClassNotFoundException e) {
-            System.out.println(e.getMessage() + "zxc123");
+            System.out.println("Driver error");
+            System.exit(1);
         }
         try {
             connection = DriverManager.getConnection(url, user, password);
             System.out.println("Connection successful!\n");
         } catch (SQLException e) {
             System.out.println("Connection error\n" + e.getMessage());
+            System.exit(1);
         }
         System.out.println("FINISH INIT");
     }
@@ -44,10 +46,8 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
             responseStreamObserver.onCompleted();
             return;
         }
-        assert statement != null;
-        ResultSet resultSet = null;
         try {
-            resultSet = statement.executeQuery("INSERT INTO users VALUES ('" + request.getFirstName() + "', '" + request.getSecondName() + "', '" + request.getEmail() + "', '" + request.getPassword() + "');");
+            statement.execute("INSERT INTO users VALUES ('" + request.getFirstName() + "', '" + request.getSecondName() + "', '" + request.getEmail() + "', '" + request.getPassword() + "');");
         } catch (SQLException e) {
             responseStreamObserver.onNext(response.setCode(false).build());
             responseStreamObserver.onCompleted();
@@ -67,9 +67,9 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
         } catch (SQLException e) {
             responseStreamObserver.onNext(response.setCode(false).build());
             responseStreamObserver.onCompleted();
+            return;
         }
-        assert statement != null;
-        ResultSet resultSet = null;
+        ResultSet resultSet;
         try {
             resultSet = statement.executeQuery("SELECT count(*) FROM users WHERE email='" + request.getEmail() + "';");
             resultSet.next();
@@ -83,6 +83,7 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
         } catch (SQLException e) {
             responseStreamObserver.onNext(response.setCode(false).build());
             responseStreamObserver.onCompleted();
+            return;
         }
         System.out.println("FINISH CONTAINS USER");
     }
@@ -96,17 +97,20 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
         } catch (SQLException e) {
             responseStreamObserver.onNext(response.setCode(false).build());
             responseStreamObserver.onCompleted();
+            return;
         }
-        assert statement != null;
-        ResultSet resultSet = null;
+        ResultSet resultSet;
         try {
             resultSet = statement.executeQuery("SELECT count(*) FROM users WHERE email = '" + request.getEmail() + "' AND password = '" + request.getPassword() + "';");
+            if (resultSet == null) {
+                throw new SQLException("Empty result set");
+            }
         } catch (SQLException e) {
             responseStreamObserver.onNext(response.setCode(false).build());
             responseStreamObserver.onCompleted();
+            return;
         }
         try {
-            assert resultSet != null;
             resultSet.next();
             if (resultSet.getInt("count") != 1) {
                 responseStreamObserver.onNext(response.setCode(false).build());
@@ -117,36 +121,41 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
         } catch (SQLException e) {
             responseStreamObserver.onNext(response.setCode(false).build());
             responseStreamObserver.onCompleted();
+            return;
         }
         System.out.println("FINISH CONTAINS PASSWORD");
     }
 
     @Override
     public void getUser(getUserRequest request, StreamObserver<getUserResponse> responseStreamObserver) {
-//        responseStreamObserver.onNext(GreetingProto.getUserResponse.newBuilder().
-//                setFirstName("bobaba").
-//                setSecondName("boba").
-//                setEmail("abpba").
-//                setPassword("aboba").
-//                setFirstName("bobaba").
-//                build());
-//        responseStreamObserver.onCompleted();
         System.out.println("GET USER");
         getUserResponse.Builder response = getUserResponse.newBuilder();
         try {
             statement = connection.createStatement();
         } catch (SQLException e) {
+            responseStreamObserver.onNext(response
+                    .setEmail("")
+                    .setPassword("")
+                    .setFirstName("")
+                    .setSecondName("")
+                    .build());
             responseStreamObserver.onCompleted();
+            return;
         }
-        assert statement != null;
-        ResultSet resultSet = null;
+        ResultSet resultSet;
         try {
             resultSet = statement.executeQuery("SELECT * FROM users WHERE email = '" + request.getLogin() + "';");
         } catch (SQLException e) {
+            responseStreamObserver.onNext(response
+                    .setEmail("")
+                    .setPassword("")
+                    .setFirstName("")
+                    .setSecondName("")
+                    .build());
             responseStreamObserver.onCompleted();
+            return;
         }
         try {
-            assert resultSet != null;
             resultSet.next();
             responseStreamObserver.onNext(response
                     .setFirstName(resultSet.getString("firstName"))
@@ -156,6 +165,12 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
                     .build());
             responseStreamObserver.onCompleted();
         } catch (SQLException e) {
+            responseStreamObserver.onNext(response
+                    .setEmail("")
+                    .setPassword("")
+                    .setFirstName("")
+                    .setSecondName("")
+                    .build());
             responseStreamObserver.onCompleted();
         }
         System.out.println("FINISH GET USER");
@@ -168,14 +183,27 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
         try {
             statement = connection.createStatement();
         } catch (SQLException e) {
+            responseStreamObserver.onNext(response
+                    .addAllAuthor(new ArrayList<>())
+                    .addAllId(new ArrayList<>())
+                    .addAllUrl(new ArrayList<>())
+                    .addAllName(new ArrayList<>())
+                    .build());
             responseStreamObserver.onCompleted();
+            return;
         }
-        assert statement != null;
-        ResultSet resultSet = null;
+        ResultSet resultSet;
         try {
             resultSet = statement.executeQuery("SELECT * from mixed_tracks WHERE author = '" + request.getLogin() + "';");
         } catch (SQLException e) {
+            responseStreamObserver.onNext(response
+                    .addAllAuthor(new ArrayList<>())
+                    .addAllId(new ArrayList<>())
+                    .addAllUrl(new ArrayList<>())
+                    .addAllName(new ArrayList<>())
+                    .build());
             responseStreamObserver.onCompleted();
+            return;
         }
         List<String> names = new ArrayList<>();
         List<String> author = new ArrayList<>();
@@ -190,7 +218,14 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
                 id.add(resultSet.getInt("id"));
             }
         } catch (SQLException e) {
-
+            responseStreamObserver.onNext(response
+                    .addAllAuthor(new ArrayList<>())
+                    .addAllId(new ArrayList<>())
+                    .addAllUrl(new ArrayList<>())
+                    .addAllName(new ArrayList<>())
+                    .build());
+            responseStreamObserver.onCompleted();
+            return;
         }
         responseStreamObserver.onNext(response
                 .addAllName(names)
@@ -205,26 +240,24 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
     @Override
     public void addTrackToUser(addTrackToUserRequest request, StreamObserver<addTrackToUserResponse> responseStreamObserver) {
         System.out.println("ADD TRACK TO USER");
-
         addTrackToUserResponse.Builder response = addTrackToUserResponse.newBuilder();
         try {
             statement = connection.createStatement();
         } catch (SQLException e) {
             responseStreamObserver.onNext(response.setCode(false).build());
             responseStreamObserver.onCompleted();
+            return;
         }
-        assert statement != null;
-        ResultSet resultSet = null;
         try {
-            resultSet = statement.executeQuery("INSERT INTO mixed_tracks VALUES ('" + request.getName() + "', '" + request.getAuthor() + "', '" + request.getUrl() + "', " + request.getId() + ");");
+            statement.execute("INSERT INTO mixed_tracks VALUES ('" + request.getName() + "', '" + request.getAuthor() + "', '" + request.getUrl() + "', " + request.getId() + ");");
         } catch (SQLException e) {
             responseStreamObserver.onNext(response.setCode(false).build());
             responseStreamObserver.onCompleted();
+            return;
         }
         responseStreamObserver.onNext(response.setCode(true).build());
         responseStreamObserver.onCompleted();
         System.out.println("FINISH ADD TRACK TO USER");
-
     }
 
     @Override
@@ -234,10 +267,16 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
         try {
             statement = connection.createStatement();
         } catch (SQLException e) {
-            responseStreamObserver.onNext(null);
+            responseStreamObserver.onNext(response
+                    .addAllAuthor(new ArrayList<>())
+                    .addAllId(new ArrayList<>())
+                    .addAllUrl(new ArrayList<>())
+                    .addAllName(new ArrayList<>())
+                    .build());
             responseStreamObserver.onCompleted();
+            return;
         }
-        ResultSet resultSet = null;
+        ResultSet resultSet;
         List<String> text_link = new ArrayList<>();
         List<Integer> id = new ArrayList<>();
         List<String> track_link = new ArrayList<>();
@@ -251,10 +290,9 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
             response.addAllName(name);
             responseStreamObserver.onNext(response.build());
             responseStreamObserver.onCompleted();
+            return;
         }
-        assert resultSet != null;
         try {
-
             while (resultSet.next()) {
                 name.add(resultSet.getString("name"));
                 text_link.add(resultSet.getString("text_link"));
@@ -262,7 +300,14 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
                 id.add(Integer.parseInt(resultSet.getString("id")));
             }
         } catch (SQLException e) {
-            //ахахах тупая джава я тебя переиграл
+            responseStreamObserver.onNext(response
+                    .addAllAuthor(new ArrayList<>())
+                    .addAllId(new ArrayList<>())
+                    .addAllUrl(new ArrayList<>())
+                    .addAllName(new ArrayList<>())
+                    .build());
+            responseStreamObserver.onCompleted();
+            return;
         }
         response.addAllAuthor(text_link);
         response.addAllId(id);
@@ -279,14 +324,17 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
         try {
             statement = connection.createStatement();
         } catch (SQLException e) {
-            System.out.println("(");
+            responseStreamObserver.onNext(response.addAllName(new ArrayList<>()).build());
+            responseStreamObserver.onCompleted();
+            return;
         }
-        ResultSet resultSet = null;
+        ResultSet resultSet;
         try {
             resultSet = statement.executeQuery("SELECT * FROM users;");
         } catch (SQLException e) {
-            responseStreamObserver.onNext(null);
+            responseStreamObserver.onNext(response.addAllName(new ArrayList<>()).build());
             responseStreamObserver.onCompleted();
+            return;
         }
         ArrayList<String> emails = new ArrayList<>();
         try {
@@ -294,7 +342,9 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
                 emails.add(resultSet.getString("email"));
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            responseStreamObserver.onNext(response.addAllName(new ArrayList<>()).build());
+            responseStreamObserver.onCompleted();
+            return;
         }
         responseStreamObserver.onNext(response.addAllName(emails).build());
         responseStreamObserver.onCompleted();
@@ -356,65 +406,62 @@ public class GreetingServiceImpl extends GreetingServiceGrpc.GreetingServiceImpl
         try {
             statement = connection.createStatement();
         } catch (SQLException e) {
-//            responseStreamObserver.onNext(response.setCode(false).build());
-//            System.exit(0);
+            responseStreamObserver.onNext(response
+                    .addAllAuthor(new ArrayList<>())
+                    .addAllName(new ArrayList<>())
+                    .addAllUrl(new ArrayList<>())
+                    .addAllId(new ArrayList<>()).build());
             responseStreamObserver.onCompleted();
+            return;
         }
-        ResultSet resultSet = null;
+        ResultSet resultSet;
         ArrayList<Integer> id = new ArrayList<>();
         try {
             resultSet = statement.executeQuery("SELECT * FROM likes WHERE login='" + request.getLogin() + "';");
         } catch (SQLException e) {
-//            responseStreamObserver.onNext(response.setCode(false).build());
+            responseStreamObserver.onNext(response
+                    .addAllAuthor(new ArrayList<>())
+                    .addAllName(new ArrayList<>())
+                    .addAllUrl(new ArrayList<>())
+                    .addAllId(new ArrayList<>()).build());
             responseStreamObserver.onCompleted();
+            return;
         }
         try {
             while (resultSet.next()) {
                 id.add(resultSet.getInt("id"));
             }
-        } catch (Exception e) {
-            //иди нахуй
+        } catch (SQLException e) {
+            responseStreamObserver.onNext(response
+                    .addAllAuthor(new ArrayList<>())
+                    .addAllName(new ArrayList<>())
+                    .addAllUrl(new ArrayList<>())
+                    .addAllId(new ArrayList<>()).build());
+            responseStreamObserver.onCompleted();
+            return;
         }
         ArrayList<String> name = new ArrayList<>();
         ArrayList<String> author = new ArrayList<>();
         ArrayList<String> url = new ArrayList<>();
-        for (int i = 0; i < id.size(); i++) {
+        for (Integer integer : id) {
             try {
-                resultSet = statement.executeQuery("SELECT * FROM default_tracks WHERE id=" + id.get(i) + ";");
+                resultSet = statement.executeQuery("SELECT * FROM default_tracks WHERE id=" + integer + ";");
                 while (resultSet.next()) {
                     name.add(resultSet.getString("name"));
                     author.add(resultSet.getString("text_link"));
                     url.add(resultSet.getString("track_link"));
                 }
             } catch (SQLException e) {
-                //потом
+                responseStreamObserver.onNext(response
+                        .addAllAuthor(new ArrayList<>())
+                        .addAllName(new ArrayList<>())
+                        .addAllUrl(new ArrayList<>())
+                        .addAllId(new ArrayList<>()).build());
+                responseStreamObserver.onCompleted();
+                return;
             }
         }
         responseStreamObserver.onNext(response.addAllId(id).addAllUrl(url).addAllName(name).addAllAuthor(author).build());
         responseStreamObserver.onCompleted();
     }
-//    @Override
-//    public void userMixedTracks(GreetingProto.requestUserMixedTracks request, StreamObserver<GreetingServiceOuterClass.responseUserMixedTracks> responseObserver) {
-//        System.out.println(request);
-//        GreetingServiceOuterClass.responseUserMixedTracks.Builder responseUserMixedTracks = GreetingServiceOuterClass.responseUserMixedTracks.newBuilder();
-//        int user_id = request.getId();
-//        try {
-//            statement = connection.createStatement();
-//        } catch (SQLException e) {
-//            System.out.println("Connection error\n" + e.getMessage());
-//        }
-//        assert statement != null;
-//        ResultSet result = null;
-//        ArrayList<String> arr = new ArrayList<>();
-//        try {
-//            result = statement.executeQuery("SELECT * FROM mixed_tracks where user_id=" + user_id + ";");
-//            while (result.next()) {
-//                arr.add(result.getString("name"));
-//            }
-//        } catch (SQLException e) {
-//            System.out.println(e.getMessage());
-//        }
-//        responseObserver.onNext(responseUserMixedTracks.addAllName(arr).build());
-//        responseObserver.onCompleted();
-//    }
 }

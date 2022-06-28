@@ -12,10 +12,27 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class App {
-    public static void main(String[] args) throws Exception {
-        Server server = ServerBuilder.forPort(50051).addService(new GreetingServiceImpl()).build();
+
+    static Server server;
+    static void createServer() throws Exception {
+        server = ServerBuilder.forPort(50051).addService(new GreetingServiceImpl()).build();
         server.start();
         System.out.println("ABOBA!");
         server.awaitTermination();
+    }
+
+    static void run() {
+        try {
+            createServer();
+        } catch (Exception e) {
+            server.shutdown();
+            System.out.println("ABOBA ended(");
+            e.printStackTrace();
+            run();
+        }
+    }
+
+    public static void main(String[] args) {
+        run();
     }
 }

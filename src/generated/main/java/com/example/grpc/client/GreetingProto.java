@@ -94,6 +94,36 @@ public final class GreetingProto {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_client_deleteTrackResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_client_addLikeRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_client_addLikeRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_client_addLikeResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_client_addLikeResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_client_removeLikeRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_client_removeLikeRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_client_removeLikeResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_client_removeLikeResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_client_getLikedTracksRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_client_getLikedTracksRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_client_getLikedTracksResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_client_getLikedTracksResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -126,26 +156,39 @@ public final class GreetingProto {
       "\003url\030\003 \003(\t\022\n\n\002id\030\004 \003(\005\"(\n\030getAllUserEmai" +
       "lsResponse\022\014\n\004name\030\001 \003(\t\"#\n\022deleteTrackR" +
       "equest\022\r\n\005login\030\001 \001(\t\"#\n\023deleteTrackResp" +
-      "onse\022\014\n\004code\030\001 \001(\0102\300\005\n\017GreetingService\022<" +
-      "\n\007addUser\022\026.client.addUserRequest\032\027.clie" +
-      "nt.addUserResponse\"\000\022K\n\014containsUser\022\033.c" +
-      "lient.containsUserRequest\032\034.client.conta" +
-      "insUserResponse\"\000\022W\n\020containsPassword\022\037." +
-      "client.containsPasswordRequest\032 .client." +
-      "containsPasswordResponse\"\000\022<\n\007getUser\022\026." +
-      "client.getUserRequest\032\027.client.getUserRe" +
-      "sponse\"\000\022N\n\rgetUserTracks\022\034.client.getUs" +
-      "erTracksRequest\032\035.client.getUserTracksRe" +
-      "sponse\"\000\022Q\n\016addTrackToUser\022\035.client.addT" +
-      "rackToUserRequest\032\036.client.addTrackToUse" +
-      "rResponse\"\000\022N\n\020getDefaultTracks\022\026.google" +
-      ".protobuf.Empty\032 .client.getDefaultTrack" +
-      "sResponse\"\000\022N\n\020getAllUserEmails\022\026.google" +
-      ".protobuf.Empty\032 .client.getAllUserEmail" +
-      "sResponse\"\000\022H\n\013deleteTrack\022\032.client.dele" +
-      "teTrackRequest\032\033.client.deleteTrackRespo" +
-      "nse\"\000B0\n\027com.example.grpc.clientB\rGreeti" +
-      "ngProtoP\001\242\002\003HLWb\006proto3"
+      "onse\022\014\n\004code\030\001 \001(\010\"+\n\016addLikeRequest\022\r\n\005" +
+      "login\030\001 \001(\t\022\n\n\002id\030\002 \001(\005\"\037\n\017addLikeRespon" +
+      "se\022\014\n\004code\030\001 \001(\010\".\n\021removeLikeRequest\022\r\n" +
+      "\005login\030\001 \001(\t\022\n\n\002id\030\002 \001(\005\"\"\n\022removeLikeRe" +
+      "sponse\022\014\n\004code\030\001 \001(\010\"&\n\025getLikedTracksRe" +
+      "quest\022\r\n\005login\030\001 \001(\t\"O\n\026getLikedTracksRe" +
+      "sponse\022\014\n\004name\030\001 \003(\t\022\016\n\006author\030\002 \003(\t\022\013\n\003" +
+      "url\030\003 \003(\t\022\n\n\002id\030\004 \003(\0052\230\007\n\017GreetingServic" +
+      "e\022<\n\007addUser\022\026.client.addUserRequest\032\027.c" +
+      "lient.addUserResponse\"\000\022K\n\014containsUser\022" +
+      "\033.client.containsUserRequest\032\034.client.co" +
+      "ntainsUserResponse\"\000\022W\n\020containsPassword" +
+      "\022\037.client.containsPasswordRequest\032 .clie" +
+      "nt.containsPasswordResponse\"\000\022<\n\007getUser" +
+      "\022\026.client.getUserRequest\032\027.client.getUse" +
+      "rResponse\"\000\022N\n\rgetUserTracks\022\034.client.ge" +
+      "tUserTracksRequest\032\035.client.getUserTrack" +
+      "sResponse\"\000\022Q\n\016addTrackToUser\022\035.client.a" +
+      "ddTrackToUserRequest\032\036.client.addTrackTo" +
+      "UserResponse\"\000\022N\n\020getDefaultTracks\022\026.goo" +
+      "gle.protobuf.Empty\032 .client.getDefaultTr" +
+      "acksResponse\"\000\022N\n\020getAllUserEmails\022\026.goo" +
+      "gle.protobuf.Empty\032 .client.getAllUserEm" +
+      "ailsResponse\"\000\022H\n\013deleteTrack\022\032.client.d" +
+      "eleteTrackRequest\032\033.client.deleteTrackRe" +
+      "sponse\"\000\022<\n\007addLike\022\026.client.addLikeRequ" +
+      "est\032\027.client.addLikeResponse\"\000\022E\n\nremove" +
+      "Like\022\031.client.removeLikeRequest\032\032.client" +
+      ".removeLikeResponse\"\000\022Q\n\016getLikedTracks\022" +
+      "\035.client.getLikedTracksRequest\032\036.client." +
+      "getLikedTracksResponse\"\000B0\n\027com.example." +
+      "grpc.clientB\rGreetingProtoP\001\242\002\003HLWb\006prot" +
+      "o3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -256,6 +299,42 @@ public final class GreetingProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_client_deleteTrackResponse_descriptor,
         new java.lang.String[] { "Code", });
+    internal_static_client_addLikeRequest_descriptor =
+      getDescriptor().getMessageTypes().get(16);
+    internal_static_client_addLikeRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_client_addLikeRequest_descriptor,
+        new java.lang.String[] { "Login", "Id", });
+    internal_static_client_addLikeResponse_descriptor =
+      getDescriptor().getMessageTypes().get(17);
+    internal_static_client_addLikeResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_client_addLikeResponse_descriptor,
+        new java.lang.String[] { "Code", });
+    internal_static_client_removeLikeRequest_descriptor =
+      getDescriptor().getMessageTypes().get(18);
+    internal_static_client_removeLikeRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_client_removeLikeRequest_descriptor,
+        new java.lang.String[] { "Login", "Id", });
+    internal_static_client_removeLikeResponse_descriptor =
+      getDescriptor().getMessageTypes().get(19);
+    internal_static_client_removeLikeResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_client_removeLikeResponse_descriptor,
+        new java.lang.String[] { "Code", });
+    internal_static_client_getLikedTracksRequest_descriptor =
+      getDescriptor().getMessageTypes().get(20);
+    internal_static_client_getLikedTracksRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_client_getLikedTracksRequest_descriptor,
+        new java.lang.String[] { "Login", });
+    internal_static_client_getLikedTracksResponse_descriptor =
+      getDescriptor().getMessageTypes().get(21);
+    internal_static_client_getLikedTracksResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_client_getLikedTracksResponse_descriptor,
+        new java.lang.String[] { "Name", "Author", "Url", "Id", });
     com.google.protobuf.EmptyProto.getDescriptor();
   }
 
